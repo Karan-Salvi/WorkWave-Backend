@@ -7,6 +7,7 @@ const userRoute = require("./routes/user.route.js");
 const companyRoute = require("./routes/company.route.js");
 const jobRoute = require("./routes/job.route.js");
 const applicationRoute = require("./routes/application.route.js");
+const cloudinary = require("cloudinary").v2;
 
 dotenv.config({});
 
@@ -30,6 +31,12 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const PORT = process.env.PORT || 3000;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.API_KEY,
+  api_secret: process.env.API_SECRET,
+});
 
 app.get("/", (req, res) => res.send("Server is running"));
 

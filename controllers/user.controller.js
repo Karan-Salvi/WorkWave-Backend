@@ -17,8 +17,22 @@ const register = async (req, res) => {
 
     console.log("file uploaded on multer : ", file);
 
+    if (!file) {
+      return res.status(400).json({
+        message: "File is missing",
+        success: false,
+      });
+    }
+
     const cloudResponse = await uploadOnCloudinary(file.path);
     console.log("Cloud url : ", cloudResponse);
+
+   if (!cloudResponse) {
+      return res.status(400).json({
+        message: "Upload failed",
+        success: false,
+      });
+    }
 
     const user = await User.findOne({ email });
     if (user) {
